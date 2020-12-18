@@ -1,8 +1,8 @@
 name: pfile
-description: A new Flutter package project.
-version: 0.0.1
+description: A flutter project for working with files/binary data
+version: 0.4.4
 author:
-homepage:
+homepage: https://github.com/SunnyApp/pfile
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -11,8 +11,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  logging: ^0.11.4
+  path_provider: ^1.6.24
+  buffer: ^1.0.7
+  uuid: ^2.2.2
+  dartx: ^0.5.0
+  chunked_stream: ^1.1.0
 
 dev_dependencies:
+  pedantic: ^1.9.2
   flutter_test:
     sdk: flutter
 

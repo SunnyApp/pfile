@@ -1,7 +1,8 @@
 library pfile;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'pfile_api.dart';
+export 'pfile_loader.dart';
+export 'pfile_ext.dart';
+export 'pfile_platform.dart'
+    if (dart.library.io) 'native/pfile_native.dart'
+    if (dart.library.js) 'web/pfile_web.dart';
