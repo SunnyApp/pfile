@@ -11,13 +11,17 @@ import '../pfile_ext.dart';
 import '../web/safe_completer.dart';
 
 Directory _tmpDir;
+final _log = Logger("pfileNative");
 
 Future<List<FileOf>> loaders() async {
-  _tmpDir = await getTemporaryDirectory();
-  return [loadFromFile, loadIntoTempFile];
+  try {
+    _tmpDir = await getTemporaryDirectory();
+  } catch (e) {
+    _log.info("Not using tmpFile for PFile loaders");
+  }
+  return [loadFromFile, if(_tmpDir != null) loadIntoTempFile];
 }
 
-final _log = Logger("pfile_native");
 
 class NativePFile extends PFile {
   final io.File file;
