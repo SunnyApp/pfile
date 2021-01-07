@@ -29,6 +29,7 @@
 .pub-cache/
 .pub/
 build/
+**/fastlane/report.xml
 
 # Android related
 **/android/**/gradle-wrapper.jar
