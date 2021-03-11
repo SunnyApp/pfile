@@ -20,7 +20,7 @@ class PFileLoader {
     }
     initialized = true;
     var l = await loaders();
-    if (l?.isNotEmpty == true) {
+    if (l.isNotEmpty == true) {
       l.forEach((loader) => this + loader);
     }
   }
@@ -32,7 +32,7 @@ class PFileLoader {
     return this;
   }
 
-  PFile fileOf(dynamic file, {String name, int size}) {
+  PFile? fileOf(dynamic file, {String? name, int? size}) {
     assert(initialized,
         "Must be initialized first by calling PFile.initialize() somewhere in your init code");
 

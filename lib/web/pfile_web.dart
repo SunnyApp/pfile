@@ -22,13 +22,13 @@ class WebPFile extends PFile {
   WebPFile(this.file);
 
   @override
-  Uint8List get bytes => null;
+  Uint8List? get bytes => null;
 
   @override
   String get name => file.name;
 
   @override
-  Stream<List<int>> openStream([int start, int end]) async* {
+  Stream<List<int>> openStream([int? start, int? end]) async* {
     final reader = FileReader();
 
     int start = 0;
@@ -38,7 +38,11 @@ class WebPFile extends PFile {
       final blob = file.slice(start, end);
       reader.readAsArrayBuffer(blob);
       await reader.onLoad.first;
-      yield reader.result;
+      var res = reader.result;
+      if (res != null) {
+        yield res as List<int>;
+      }
+
       start += chunkSize;
     }
     var duration = DateTime.now().difference(startTime);
@@ -47,7 +51,7 @@ class WebPFile extends PFile {
   }
 
   @override
-  String get path => file.relativePath;
+  String? get path => file.relativePath;
 
   @override
   Future<PFile> get read async => this;
@@ -58,7 +62,7 @@ class WebPFile extends PFile {
 
 /// Since web doesn't have access to write files, we need to just keep things in
 /// memory...
-PFile webFileOfBytes(dynamic file, {String name, int size}) {
+PFile? webFileOfBytes(dynamic file, {String? name, int? size}) {
   name ??= puid();
   if (file is Uint8List) {
     return RawPFile.ofBytes(name, file);
@@ -73,10 +77,10 @@ PFile webFileOfBytes(dynamic file, {String name, int size}) {
     } else if (file is Stream<int>) {
       _fileStream = file.chunked(PFile.defaultChunkSize);
     } else {
-      assert(false, "Only support streams of List<int> or int");
+      throw "Only support streams of List<int> or int";
     }
 
-    return RawPFile.ofSingleStream(name, _fileStream, size: size);
+    return RawPFile.ofSingleStream(name, _fileStream, size: size!);
   } else {
     return null;
   }
@@ -84,7 +88,7 @@ PFile webFileOfBytes(dynamic file, {String name, int size}) {
 
 /// Since web doesn't have access to write files, we need to just keep things in
 /// memory...
-PFile webFileOf(dynamic file, {String name, int size}) {
+PFile? webFileOf(dynamic file, {String? name, int? size}) {
   name ??= puid();
   if (file is web.File) {
     return WebPFile(file);
