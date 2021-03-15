@@ -70,7 +70,7 @@ packages:
       name: dartx
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.0"
+    version: "0.7.0"
   equatable:
     dependency: transitive
     description:
@@ -109,13 +109,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  inflection2:
+  inflection3:
     dependency: transitive
     description:
-      name: inflection2
+      name: inflection3
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.3"
+    version: "0.5.3+1"
   intl:
     dependency: transitive
     description:
@@ -123,13 +123,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.17.0"
-  libphonenumber:
+  libphonenumber2:
     dependency: transitive
     description:
-      name: libphonenumber
+      name: libphonenumber2
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "2.0.2+2"
   logging:
     dependency: "direct main"
     description:
@@ -207,13 +207,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
-  platform_detect:
+  platform_detect2:
     dependency: transitive
     description:
-      name: platform_detect
+      name: platform_detect2
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.0"
+    version: "1.5.0+2"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -234,7 +234,7 @@ packages:
       name: pub_semver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.4"
+    version: "2.0.0"
   quiver:
     dependency: transitive
     description:
@@ -248,7 +248,7 @@ packages:
       name: recase
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.1"
+    version: "4.0.0-nullsafety.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -295,7 +295,7 @@ packages:
       name: sunny_dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.0+5"
+    version: "0.8.0+7"
   term_glyph:
     dependency: transitive
     description:
@@ -316,14 +316,14 @@ packages:
       name: time
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.5.0-nullsafety.1"
+    version: "2.0.0"
   timezone:
     dependency: transitive
     description:
       name: timezone
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.1"
+    version: "0.7.0-nullsafety.0"
   typed_data:
     dependency: transitive
     description:

@@ -10,12 +10,12 @@ dependencies:
   path_provider: ^2.0.1
   buffer: ^1.1.0
   uuid: ^3.0.1
-  dartx: ^0.6.0
+  dartx: ^0.7.0
   chunked_stream: ^1.4.0
   flutter: 
     sdk: flutter
 dev_dependencies: 
   pedantic: ^1.11.0
-  sunny_dart: ^0.7.0+5
+  sunny_dart: ^0.8.0+7
   flutter_test: 
     sdk: flutter
