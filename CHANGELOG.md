@@ -1,3 +1,7 @@
+## [2.0.1-nullsafety.3]
+ * Updating version
+Upgrading deps
+
 ## [1.0.1+2]
  * Updated bundler
 Null safety
