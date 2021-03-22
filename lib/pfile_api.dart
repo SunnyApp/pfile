@@ -1,13 +1,11 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'dart:typed_data';
 
-import 'package:logging/logging.dart';
 import 'package:pfile/pfile_loader.dart';
 
 import 'pfile_ext.dart';
 
 typedef FileOf = PFile? Function(dynamic type, {String? name, int? size});
-
-final _log = Logger("pfile");
 
 typedef PFileToByteStream = Stream<List<int>> Function(PFile file);
 

@@ -5,8 +5,6 @@ import 'pfile_platform.dart'
     if (dart.library.io) 'native/pfile_native.dart'
     if (dart.library.js) 'web/pfile_web.dart';
 
-final _log = Logger("pfile");
-
 /// Knows how to recognize different types of data representations into a PFile
 /// using a series of strategies
 class PFileLoader {

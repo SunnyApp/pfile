@@ -47,7 +47,6 @@ class NativePFile extends PFile {
   @override
   int get size => file.lengthSync();
 
-  @override
   io.File get wrapped => file;
 }
 
