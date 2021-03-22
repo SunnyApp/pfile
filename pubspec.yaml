@@ -1,5 +1,5 @@
 name: pfile
-version: 2.1.0
+version: 2.1.0+1
 homepage: https://github.com/SunnyApp/pfile
 description: A flutter project for working with files/binary data in a cross-platform way
 environment: 

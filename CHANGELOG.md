@@ -1,3 +1,7 @@
+## [2.1.0+1]
+ * Remove gemfile
+Minor bump
+
 ## [2.0.1-nullsafety.3]
  * Updating version
 Upgrading deps
