@@ -1,3 +1,6 @@
+## [2.1.0+3]
+ * Updated dependencies
+
 ## [2.1.0+1]
  * Remove gemfile
 Minor bump
