@@ -1,3 +1,6 @@
+## [2.1.0+4]
+ * Null safety for completer
+
 ## [2.1.0+3]
  * Updated dependencies
 
