@@ -17,7 +17,7 @@ Future<List<FileOf>> loaders() async {
   try {
     _tmpDir = await getTemporaryDirectory();
   } catch (e) {
-    _log.info("Not using tmpFile for PFile loaders");
+    _log.info("Not using tmpFile for PFile loaders: $e");
   }
   return [loadFromFile, if (_tmpDir != null) loadIntoTempFile];
 }
