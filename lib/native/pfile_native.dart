@@ -6,8 +6,6 @@ import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../pfile.dart';
-import '../pfile_api.dart';
-import '../pfile_ext.dart';
 import '../web/safe_completer.dart';
 
 Directory? _tmpDir;
