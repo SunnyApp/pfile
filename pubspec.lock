@@ -77,14 +77,14 @@ packages:
       name: dartxx
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.0+2"
+    version: "0.5.5"
   equatable:
     dependency: transitive
     description:
       name: equatable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.3"
   fake_async:
     dependency: transitive
     description:
@@ -136,7 +136,7 @@ packages:
       name: logging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   matcher:
     dependency: transitive
     description:
@@ -206,7 +206,7 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.11.0"
+    version: "1.11.1"
   platform:
     dependency: transitive
     description:
@@ -234,7 +234,7 @@ packages:
       name: recase
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0-nullsafety.0"
+    version: "4.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -325,7 +325,5 @@ packages:
     source: hosted
     version: "0.2.0"
 sdks:
-  dart: ">=2.14.0 <3.0.0"
+  dart: ">=2.16.0 <3.0.0"
   flutter: ">=1.20.0"
-
-
