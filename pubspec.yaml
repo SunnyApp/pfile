@@ -10,12 +10,13 @@ dependencies:
   path_provider: ^2.0.1
   buffer: ^1.1.1
   uuid: ^3.0.4
-  dartx: ^0.7.1
+  dartx: ^1.1.0
   chunked_stream: ^1.4.1
   flutter: 
     sdk: flutter
 dev_dependencies: 
   pedantic: ^1.11.1
-  dartxx: ^0.5.5
+  dartxx: 
+    path: /Users/ericm/sunny/player_rank/packages/dartxx
   flutter_test: 
     sdk: flutter
