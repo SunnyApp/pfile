@@ -17,6 +17,8 @@ dependencies:
 dev_dependencies: 
   pedantic: ^1.11.1
   dartxx: 
-    path: /Users/ericm/sunny/trippi_plugins/dartxx
+    git: 
+      url: git@github.com:ericmartineau/dartxx.git
+      ref: trippi_app
   flutter_test: 
     sdk: flutter
