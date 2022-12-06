@@ -6,15 +6,15 @@ environment:
   sdk: '>=2.7.0 <3.0.0'
   flutter: '>=1.17.0'
 dependencies: 
-  logging: ^0.11.4
-  path_provider: ^1.6.24
+  logging: ^1.0.2
+  path_provider: ^2.0.11
   buffer: ^1.0.7
-  uuid: ^2.2.2
-  dartx: ^0.5.0
+  uuid: ^3.0.6
+  dartx: ^1.1.0
   chunked_stream: ^1.1.0
   flutter: 
     sdk: flutter
 dev_dependencies: 
-  pedantic: ^1.9.2
+  pedantic: ^1.11.1
   flutter_test: 
     sdk: flutter
