@@ -6,10 +6,10 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
   flutter: '>=1.17.0'
 dependencies: 
-  logging: ^1.0.2
+  logging: ^1.1.0
   path_provider: ^2.0.11
   buffer: ^1.1.1
-  uuid: ^3.0.6
+  uuid: ^3.0.7
   dartx: ^1.1.0
   chunked_stream: ^1.4.1
   flutter: 
@@ -17,6 +17,6 @@ dependencies:
 dev_dependencies: 
   pedantic: ^1.11.1
   dartxx:
-    path: /Users/ericm/sunny/local_plugins/dartxx
+    path: /Users/ericm/reliveit/checkout/ericmartineau/dartxx
   flutter_test: 
     sdk: flutter
