@@ -1,20 +1,22 @@
 name: pfile
-version: 0.4.4+2
+version: 2.2.0
 homepage: https://github.com/SunnyApp/pfile
 description: A flutter project for working with files/binary data in a cross-platform way
 environment: 
-  sdk: '>=2.7.0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
   flutter: '>=1.17.0'
 dependencies: 
   logging: ^1.0.2
   path_provider: ^2.0.11
-  buffer: ^1.0.7
+  buffer: ^1.1.1
   uuid: ^3.0.6
   dartx: ^1.1.0
-  chunked_stream: ^1.1.0
+  chunked_stream: ^1.4.1
   flutter: 
     sdk: flutter
 dev_dependencies: 
   pedantic: ^1.11.1
+  dartxx:
+    path: /Users/ericm/sunny/local_plugins/dartxx
   flutter_test: 
     sdk: flutter

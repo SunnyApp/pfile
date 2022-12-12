@@ -1,13 +1,11 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'dart:typed_data';
 
-import 'package:logging/logging.dart';
 import 'package:pfile/pfile_loader.dart';
 
 import 'pfile_ext.dart';
 
-typedef FileOf = PFile Function(dynamic type, {String name, int size});
-
-final _log = Logger("pfile");
+typedef FileOf = PFile? Function(dynamic type, {String? name, int? size});
 
 typedef PFileToByteStream = Stream<List<int>> Function(PFile file);
 
@@ -22,7 +20,7 @@ abstract class PFile {
 
   const PFile();
 
-  factory PFile.of(dynamic raw, {String name, int size}) {
+  static PFile? of(dynamic raw, {String? name, int? size}) {
     if (raw is PFile) return raw;
     PFile.initialize();
     return loaders.fileOf(raw, name: name, size: size);
@@ -53,10 +51,10 @@ abstract class PFile {
   /// ```
   /// final File myFile = File(platformFile.path);
   /// ```
-  String get path;
+  String? get path;
 
   /// File name including its extension.
-  String get name;
+  String? get name;
 
   // /// File content as stream
   // final PFileToByteStream _readStreamFactory;
@@ -68,11 +66,11 @@ abstract class PFile {
   Future<PFile> get read;
 
   /// File extension for this file.
-  String get extension => name?.split('.')?.last;
+  String? get extension => name?.split('.').lastWhere((element) => true);
 
   /// Try not to use this
   @deprecated
-  Uint8List get bytes;
+  Uint8List? get bytes;
 }
 
 extension PlatformFileWriteExt on PFile {
@@ -87,14 +85,14 @@ extension PlatformFileWriteExt on PFile {
 
   Future<Uint8List> get awaitData async {
     if (bytes != null) {
-      return bytes;
+      return bytes!;
     } else {
       return openStream().readFully();
     }
   }
 
-  String get extension {
-    String np = this.name ?? path;
+  String? get extension {
+    var np = this.name ?? path;
     return np?.extension;
   }
 }

@@ -7,11 +7,15 @@ import '../pfile_api.dart';
 import '../pfile_ext.dart';
 import 'safe_completer.dart';
 
+Stream<List<int>> rawPFileReadStreamFactory(PFile file) {
+  return Stream.fromIterable((file as RawPFile)._bytes!).chunked(1024);
+}
+
 /// Web cannot write files, so this acts as an in-memory representation
 class RawPFile extends PFile {
   static int defaultChunkSize = 1024 * 1024;
   static final log = Logger("rawPFile");
-  final SafeCompleter<PFile> _read;
+  final SafeCompleter<PFile>? _read;
 
   /// This constructor is more low-level because we can't pull in any file dependencies
   /// into this code
@@ -19,44 +23,39 @@ class RawPFile extends PFile {
     this.path,
     this._readStreamFactory,
     this._size, {
-    SafeCompleter completer,
-  })  : assert(_size != null),
-        assert(path != null),
-        _read = SafeCompleter.stopped(),
-        name = path.split("/").last {
+    SafeCompleter? completer,
+  })  : _read = completer == null ? null : SafeCompleter.stopped(),
+        name = path!.split("/").last {
     if (completer != null) {
-      _read.start();
+      _read!.start();
       completer.future.whenComplete(() {
-        _read.complete(this);
+        _read!.complete(this);
       });
     }
   }
 
-  RawPFile.ofBytes(String name, Uint8List bytes)
-      : assert(bytes != null),
-        _isRead = true,
+  RawPFile.ofBytes(String? name, Uint8List bytes)
+      : _isRead = true,
         path = null,
         _bytes = bytes,
         name = name ?? puid(),
-        _read = SafeCompleter.stopped(),
-        _readStreamFactory =
-            ((_) => Stream.fromIterable((_ as RawPFile)._bytes).chunked(1024)),
+        _read = null,
+        _readStreamFactory = rawPFileReadStreamFactory,
         _size = bytes.length;
 
-  RawPFile.ofStream(String name, this._readStreamFactory, this._size)
+  RawPFile.ofStream(String? name, this._readStreamFactory, this._size)
       : name = name ?? puid(),
         path = null,
         _isRead = false,
-        _read = _size == null ? SafeCompleter() : SafeCompleter.stopped();
+        _read = _size == null ? SafeCompleter() : null;
 
-  factory RawPFile.ofSingleStream(String name, Stream<List<int>> data,
-      {int size}) {
+  factory RawPFile.ofSingleStream(String name, Stream<List<int>> data, {int? size}) {
     /// The read stream getter will read the stream the first time,
     /// copy it into memory and serve it from there the next time.
     Stream<List<int>> getReadStream(PFile file) async* {
       final pfile = file as RawPFile;
-      pfile._read.start();
-      if (!pfile._isRead) {
+      pfile._read?.start();
+      if (pfile._isRead == false) {
         log.warning("Full read of $name.  SLOW!!");
         var start = DateTime.now();
         var buffer = BytesBuffer();
@@ -64,12 +63,11 @@ class RawPFile extends PFile {
           buffer.add(b);
           yield b;
         }
-        log.warning(
-            "Full read of $name in ${DateTime.now().difference(start)}");
+        log.warning("Full read of $name in ${DateTime.now().difference(start)}");
         pfile.markRead(buffer.toBytes());
         return;
       } else {
-        yield* pfile._bytes.chunkedStream(PFile.defaultChunkSize);
+        yield* pfile._bytes!.chunkedStream(PFile.defaultChunkSize);
       }
     }
 
@@ -85,17 +83,17 @@ class RawPFile extends PFile {
   /// final File myFile = File(platformFile.path);
   /// ```
   @override
-  final String path;
+  final String? path;
 
   /// File name including its extension.
   @override
-  final String name;
+  final String? name;
 
   /// Byte data for this file. Particurlarly useful if you want to manipulate its data
   /// or easily upload to somewhere else.
-  Uint8List _bytes;
+  Uint8List? _bytes;
 
-  bool _isRead;
+  bool? _isRead;
 
   bool get hasBeenRead {
     return _isRead == true && _bytes != null;
@@ -105,21 +103,20 @@ class RawPFile extends PFile {
   final PFileToByteStream _readStreamFactory;
 
   /// The file size in KB.
-  int _size;
+  int? _size;
 
-  int get size =>
-      _size ?? illegalState("No file size yet - wait until read is complete");
+  int get size => _size ?? illegalState("No file size yet - wait until read is complete");
 
   Future<PFile> get read async {
-    if (_read.isStarted) {
-      return await _read.future;
+    if (_read?.isStarted == true) {
+      return await _read!.future;
     } else {
       return this;
     }
   }
 
   /// File extension for this file.
-  String get extension => name?.split('.')?.last;
+  String? get extension => name?.split('.').last;
 
   Uint8List get bytes {
     return _bytes ?? illegalState("No bytes available");
@@ -128,12 +125,12 @@ class RawPFile extends PFile {
   void markRead(Uint8List data) {
     _isRead = true;
     _bytes = data;
-    _read.complete(this);
+    _read?.complete(this);
   }
 
   @override
-  Stream<List<int>> openStream([int start, int end]) {
-    return _readStreamFactory(this).skip(start);
+  Stream<List<int>> openStream([int? start, int? end]) {
+    return _readStreamFactory(this).skip(start ?? 0);
   }
 }
 
@@ -148,15 +145,15 @@ extension RawPFileWriteExt on RawPFile {
   // }
 
   Future<Uint8List> get awaitData async {
-    if (_isRead) {
-      return _bytes;
+    if (_isRead == true) {
+      return _bytes ?? Uint8List(0);
     } else {
       return _readStreamFactory(this).readFully();
     }
   }
 
-  String get extension {
-    String np = this.name ?? path;
+  String? get extension {
+    var np = this.name ?? path;
     return np?.extension;
   }
 

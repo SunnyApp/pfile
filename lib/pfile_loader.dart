@@ -5,8 +5,6 @@ import 'pfile_platform.dart'
     if (dart.library.io) 'native/pfile_native.dart'
     if (dart.library.js) 'web/pfile_web.dart';
 
-final _log = Logger("pfile");
-
 /// Knows how to recognize different types of data representations into a PFile
 /// using a series of strategies
 class PFileLoader {
@@ -20,7 +18,7 @@ class PFileLoader {
     }
     initialized = true;
     var l = await loaders();
-    if (l?.isNotEmpty == true) {
+    if (l.isNotEmpty == true) {
       l.forEach((loader) => this + loader);
     }
   }
@@ -32,7 +30,7 @@ class PFileLoader {
     return this;
   }
 
-  PFile fileOf(dynamic file, {String name, int size}) {
+  PFile? fileOf(dynamic file, {String? name, int? size}) {
     assert(initialized,
         "Must be initialized first by calling PFile.initialize() somewhere in your init code");
 

@@ -6,22 +6,19 @@ import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../pfile.dart';
-import '../pfile_api.dart';
-import '../pfile_ext.dart';
 import '../web/safe_completer.dart';
 
-Directory _tmpDir;
+Directory? _tmpDir;
 final _log = Logger("pfileNative");
 
 Future<List<FileOf>> loaders() async {
   try {
     _tmpDir = await getTemporaryDirectory();
   } catch (e) {
-    _log.info("Not using tmpFile for PFile loaders");
+    _log.info("Not using tmpFile for PFile loaders: $e");
   }
-  return [loadFromFile, if(_tmpDir != null) loadIntoTempFile];
+  return [loadFromFile, if (_tmpDir != null) loadIntoTempFile];
 }
-
 
 class NativePFile extends PFile {
   final io.File file;
@@ -35,7 +32,7 @@ class NativePFile extends PFile {
   String get name => file.fileName;
 
   @override
-  Stream<List<int>> openStream([int start, int end]) {
+  Stream<List<int>> openStream([int? start, int? end]) {
     return file.openRead(start, end);
   }
 
@@ -48,16 +45,15 @@ class NativePFile extends PFile {
   @override
   int get size => file.lengthSync();
 
-  @override
   io.File get wrapped => file;
 }
 
 /// For memory efficiency, we write to a temp file as soon as we can.
-PFile loadIntoTempFile(dynamic file, {String name, int size}) {
+PFile? loadIntoTempFile(dynamic file, {String? name, int? size}) {
   assert(_tmpDir != null);
   name ??= puid();
 
-  var tmpFile = name.contains("/") ? File(name) : _tmpDir.file(name);
+  var tmpFile = name.contains("/") ? File(name) : _tmpDir!.file(name);
   var ready = SafeCompleter();
   if (!tmpFile.existsSync()) {
     if (file == null) return null;
@@ -80,7 +76,7 @@ PFile loadIntoTempFile(dynamic file, {String name, int size}) {
           : (file as Stream<int>).chunked(PFile.defaultChunkSize);
 
       _fileStream.toList().then((bytes) {
-        tmpFile.writeAsBytesSync(bytes.expand((_) => _), flush: true);
+        tmpFile.writeAsBytesSync(bytes.expand((_) => _).toList(), flush: true);
         ready.complete();
       });
     } else {
@@ -92,7 +88,7 @@ PFile loadIntoTempFile(dynamic file, {String name, int size}) {
   return NativePFile(tmpFile);
 }
 
-PFile loadFromFile(dynamic file, {String name, int size}) {
+PFile? loadFromFile(dynamic file, {String? name, int? size}) {
   if (file is File) {
     return NativePFile(file);
   }
